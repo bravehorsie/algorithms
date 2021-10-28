@@ -1,11 +1,9 @@
 import net.grigoriadi.algorithms.sort.ArraySort;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -28,11 +26,16 @@ public class SortTest {
     }
 
     @Test
-    public void testMergeSort() {
-        ArraySort<Integer> sort = new ArraySort<>(Integer.class, false);
+    public void testMergeSortSimple() {
+        ArraySort<Integer> sort = new ArraySort<>(Integer.class, true);
         sort.sortWithMergeSort(subjectArray);
         System.out.println(Arrays.toString(subjectArray));
 
+    }
+
+    @Test
+    public void testMergeSortRandom() {
+        ArraySort<Integer> sort = new ArraySort<>(Integer.class, false);
         Integer[] randomOrder = new Integer[128];
         List<Integer> ints = new ArrayList<>();
         IntStream.range(0, 128).forEach(ints::add);
@@ -46,5 +49,12 @@ public class SortTest {
         sort.sortWithMergeSort(randomOrder);
         System.out.println("randomOrder sorted = " + Arrays.toString(randomOrder));
 
+        Integer last = null;
+        for (Integer integer : randomOrder) {
+            if (last != null) {
+                Assert.assertTrue(last.compareTo(integer) < 0);
+            }
+            last = integer;
+        }
     }
 }
