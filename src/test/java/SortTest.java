@@ -36,15 +36,7 @@ public class SortTest {
     @Test
     public void testMergeSortRandom() {
         ArraySort<Integer> sort = new ArraySort<>(Integer.class, false);
-        Integer[] randomOrder = new Integer[128];
-        List<Integer> ints = new ArrayList<>();
-        IntStream.range(0, 128).forEach(ints::add);
-        Random r = new Random();
-        for (int i = 0; i < randomOrder.length; i++) {
-            Integer next = ints.get(r.nextInt(ints.size()));
-            randomOrder[i] = next;
-            ints.remove(next);
-        }
+        Integer[] randomOrder = ArrayUtil.createRandomOrderedIntegers(128);
         System.out.println("randomOrder = " + Arrays.toString(randomOrder));
         sort.sortWithMergeSort(randomOrder);
         System.out.println("randomOrder sorted = " + Arrays.toString(randomOrder));
@@ -57,4 +49,6 @@ public class SortTest {
             last = integer;
         }
     }
+
+
 }
