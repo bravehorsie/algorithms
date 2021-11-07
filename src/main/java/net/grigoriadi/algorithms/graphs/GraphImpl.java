@@ -1,19 +1,13 @@
 package net.grigoriadi.algorithms.graphs;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GraphImpl<T> implements Graph<T> {
 
     private final Map<T, List<T>> graph;
 
-    private final int V;
-
-    public GraphImpl(int V) {
-        graph = new HashMap<T, List<T>>(V);
-        this.V = V;
+    public GraphImpl(int count) {
+        graph = new HashMap<>(count);
     }
 
     public void addConnection(T a, T b) {
@@ -32,16 +26,16 @@ public class GraphImpl<T> implements Graph<T> {
     }
 
     @Override
-    public int getV() {
-        return V;
+    public int getCount() {
+        return graph.keySet().size();
     }
 
     private List<T> getBucket(T a) {
-        List<T> bucket = graph.get(a);
-        if (bucket == null) {
-            bucket = new ArrayList<T>();
-            graph.put(a, bucket);
-        }
-        return bucket;
+        return graph.computeIfAbsent(a, k -> new ArrayList<>());
+    }
+
+    @Override
+    public Set<T> getVertices() {
+        return graph.keySet();
     }
 }

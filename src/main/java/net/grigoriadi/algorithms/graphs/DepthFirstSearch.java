@@ -14,8 +14,8 @@ public class DepthFirstSearch<T> implements Search<T> {
 
     public DepthFirstSearch(Graph<T> graph, T s) {
         this.graph = graph;
-        marks = new HashSet<>(graph.getV());
-        edgeTo = new HashMap<>(graph.getV());
+        marks = new HashSet<>(graph.getCount());
+        edgeTo = new HashMap<>(graph.getCount());
         this.s = s;
         dfs(s);
     }
@@ -37,5 +37,9 @@ public class DepthFirstSearch<T> implements Search<T> {
             path.push(s);
         }
         return path;
+    }
+
+    public Set<T> getMarks() {
+        return marks;
     }
 }
